@@ -244,8 +244,19 @@ bool isValidDate(char *date)
  * @param list The strings being tested.
  * @return char** The list of valid inputs.
  */
-char **checkDates(char **list, int size)
+char **checkDates(char **list)
 {
+    // Get the size of the list
+    int size = 0;
+    // Create a pointer to the list
+    char **temp = list;
+    // While the pointer is not NULL, go to the next word and increase size
+    while (*temp != NULL)
+    {
+        size++;
+        temp++;
+    }
+
     char **validDates = malloc(sizeof(char *) * size);
     int idx = 0;
     for (int i = 0; i < size; i++)
@@ -267,7 +278,7 @@ char **checkDates(char **list, int size)
  */
 int main() 
 {
-    char** testInput = malloc(sizeof(char *) * 13);
+    char** testInput = malloc(sizeof(char *) * 20);
     // Valid dates
     testInput[0] = "1999-12-31T23:59:59Z"; // valid Bound checks
     testInput[1] = "2000-01-01T00:00:00Z"; // valid 
@@ -284,12 +295,8 @@ int main()
     testInput[11] = "2000-01-00T00:00:00+30:00"; // invalid Days
     testInput[12] = ""; // Empty String
 
-
-    // Get the number of test inputs
-    int numDates = 13;
-
     // Pass each test input to the function and store a list of each valid input.
-    char **validDates = checkDates(testInput, numDates);
+    char **validDates = checkDates(testInput);
 
     // 
     int numValidDates = 0;
